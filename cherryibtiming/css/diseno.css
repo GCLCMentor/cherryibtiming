@@ -1,0 +1,164 @@
+@charset "UTF-8";
+
+#contenido {
+  text-align: center;
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  font: bold;
+}
+
+#contenido .p {
+  padding: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+#contenido .span {
+  font-weight: bold;
+}
+
+input {
+  height: 25px;
+  font-size: 20px;
+  text-indent: 5px;
+}
+
+select {
+  height: 32px;
+  font-size: 20px;
+}
+
+#iniciar,
+#iniciar2 {
+  display: none;
+}
+
+#regresar {
+  display: none;
+}
+
+#titulo {
+  font-size: large;
+}
+
+#hora,
+#hora2,
+#countdown {
+  font-size: 7vw;
+}
+
+#timer {
+  position: fixed;
+  top: 450px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #FFFFFF;
+  padding: 25px;
+  border: rgba(0, 0, 0, 1.00);
+  width: 590px;
+}
+
+.panel {
+  font-size: 2.0vw;
+  padding: 5px;
+  margin: 5px;
+}
+
+.button {
+  background-color: #e7e7e7;
+  color: black;
+  /* Gray */
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  height: 35px;
+  text-indent: 0px;
+}
+
+.button {
+  background-image: linear-gradient(#42A1EC, #0070C9);
+  border: 1px solid #0077CC;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  direction: ltr;
+  display: block;
+  font-family: "SF Pro Text", "SF Pro Icons", "AOS Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -.022em;
+  line-height: 1.47059;
+  min-width: 30px;
+  overflow: visible;
+  padding: 4px 15px;
+  text-align: center;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  margin: auto;
+}
+
+.button:disabled {
+  cursor: default;
+  opacity: .3;
+}
+
+.button:hover {
+  background-image: linear-gradient(#51A9EE, #147BCD);
+  border-color: #1482D0;
+  text-decoration: none;
+}
+
+.button:active {
+  background-image: linear-gradient(#3D94D9, #0067B9);
+  border-color: #006DBC;
+  outline: none;
+}
+
+.button:focus {
+  box-shadow: rgba(131, 192, 253, 0.5) 0 0 0 3px;
+  outline: none;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: #000000;
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+}
+
+.container2 {
+  width: 100%;
+  display: flex;
+}
+
+.left,
+.right {
+  width: 50%;
+  /*height: 100vh; /* Esto hace que el DIV ocupe toda la altura de la pantalla */
+}
+
+.center {
+  width: 100%;
+  /*height: 100vh; /* Esto hace que el DIV ocupe toda la altura de la pantalla */
+}
+
+.left,
+.right,
+.center {
+  background-color: whitesmoke;
+}

@@ -1,0 +1,48 @@
+<?php include '../auth_check.php';
+
+$userName = isset($_SESSION['name']) ? $_SESSION['name'] : 'Guest';
+
+?>
+
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<title>Examination Session IB Diploma Programme - GCLC</title>
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+	<link href="css/diseno.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<div id="contenido">
+		<div style="text-align: center; padding-top: 200px"><a href="index-2.html"><img src="img/Logo.png" width="412"
+					height="200" alt=""></a></div>
+
+		<div id="titulo">
+			<h1 style="padding-top: 50px; font-size: 3vw;">Examination Session IB Diploma Programme<br>Gimnasio Campestre Los Cerezos</h1>
+		</div>
+		<div id="botones" style="padding-top: 50px; padding-bottom: 20px;">
+			<a href="1.html"><input style="width: 220px;" class="button" name="Start one Examination" type="button"
+					value="Start one Examination" style="color: white; display: inline"></a>
+		</div>
+		<div id="botones" style="padding-bottom: 20px;">
+			<a href="2.html"><input style="width: 220px;" class="button" name="Start two Examinations" type="button"
+					value="Start two Examinations" style="color: white; display: inline"></a>
+		</div>
+		<!--
+		<div id="botones" style="padding-bottom: 20px;">
+			<a href="3.html"><input style="width: 180px;" class="button" name="Tres Evaluaciones" type="button"
+					value="Tres Evaluaciones" style="color: white; display: inline"></a>
+		</div>
+		-->
+		<div id="timer" style="display: none">
+			<h2>Reading Time:</h2>
+			<h1><span id="tiempolectura">00:00</span></h1>
+		</div>
+	</div>
+
+</body>
+
+</html>

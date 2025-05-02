@@ -1,0 +1,399 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Examination Session IB Diploma Programme - GCLC</title>
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+	<link href="css/diseno.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css">
+	<script src="FileSaver.js"></script>
+</head>
+
+<body onload="startTime()">
+	<div id="contenido">
+		<div style="display: flex; justify-content: space-evenly; align-items: center; margin: 20px 0;">
+			<div style="text-align: center; padding-top: 20px">
+				<a href="index-2.html"><img src="img/Logo.png" width="412" height="200" alt=""></a>
+			</div>
+			<div id="titulo">
+				<h1 style="font-size: 3vw;">IB Examination Timer</h1>
+			</div>
+		</div>
+		<div class="container2" style="margin: 0px; border: 0.0em solid white;">
+			<div class=" center" style="width: 100%; float: center; border: 0.5em solid white; padding: 20px;">
+				<div style="display: flex; justify-content: space-evenly; align-items: center; margin: 20px 0;">
+					<div style="text-align: center;">
+						<div style="font-size: 150%;">Current Time</div>
+						<div style="font-size: 7vw; margin-top: 10px;" id="hora">00:00:00</div>
+					</div>
+					<div style="text-align: center;">
+						<div style="font-size: 150%;">Time Left</div>
+						<div style="font-size: 7vw; margin-top: 10px;" id="countdown">00:00:00</div>
+					</div>
+				</div>
+			<div class="panel">
+				<div id="formulario">
+					<p style="margin: 10px;">
+						<label>Subject: </label><input type="text" name="asignatura" id="asignatura">
+						<label style="padding-left: 30px">Level: </label><select name="nivel" id="nivel">
+							<option value="ML">ML</option>
+							<option value="SL">SL</option>
+						</select>
+						<label style="padding-left: 30px">Test: </label><select id="prueba">
+							<option value="T1">T1</option>
+							<option value="T2">T2</option>
+							<option value="T3">T3</option>
+						</select>
+					</p>
+                    <p style="margin-top: 10px; margin-bottom: 10px;">
+                        <label>Duration in Hours: </label>
+                        <select name="horasex" id="horasex" style="width: 60px;">
+                            <!-- Opciones de 0 a 11 -->
+                            <script>
+                                for(let i=0; i<=11; i++) {
+                                    document.write('<option value="' + i + '">' + i + '</option>');
+                                }
+                            </script>
+                        </select>
+                        <label style="padding-left: 15px; width: 20px;"> Min: </label>
+                        <select name="minex" id="minex" style="width: 60px;">
+                            <!-- Opciones de 0 a 59 -->
+                            <script>
+                                for(let i=0; i<=59; i++) {
+                                    document.write('<option value="' + i + '">' + i + '</option>');
+                                }
+                            </script>
+                        </select>
+                    </p>
+					<p style="margin-top: 10px;">Invigilator: </label><input type="text" name="iniciales" id="iniciales"
+							style="width: 60px; text-transform: uppercase;">
+					</p>
+				</div>
+				<div id="activada" style="display: none">
+					<p style="margin: 10px;">Subject: <span style="padding-right: 30px"	id="asignaturaactivada"></span>
+						Level: <span id="nivelactivada" style="padding-right: 30px"></span> Test: <span	id="pruebaactivada"></span> </p>
+					<p style="margin-top: 10px; margin-bottom: 10px;">Examination Time: <span id="tiempoactivada"></span></p>
+					<p style="margin-top: 10px;">Invigilator: <span id="inicialesactivada"
+							style="text-transform: uppercase;"></span></p>
+				</div>
+				<div id="iniciada" style="display: none">
+					<p style="margin: 10px;">Subject: <span style="padding-right: 30px"
+							id="asignaturainiciada"></span>
+						Level: <span id="niveliniciada" style="padding-right: 30px"></span> Test: <span
+							id="pruebainiciada"></span> </p>
+					<p style="margin-top: 10px;">Examination Time: <span id="tiempoiniciada"></span></p>
+					<span style="font-size: 170%">
+						<p style="margin: 20px;">Start Time: <span id="inicio"></span> <br />End Time: <span
+								id="fin" style="color: red"></span></p>
+						<p style="font-size: x-large; font-weight: bold; margin: 40px 0 20px 0;">Remaining 30' at <span id="30"
+								style="padding-right: 40px"></span>Remaining 5' at  <span id="5"></span><br /></p>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="width: 100%; float: center; margin: 0px;"><br />
+		<div id="contenido">
+			<div id="botones">
+				<input class="button" name="Activar Evaluación" type="button" id="activar" value="Activate Evaluation"
+					onClick="activar()" style="color: white">
+				<input class="button" name="Iniciar Lectura" type="button" id="inlectura" value="Start Reading Time"
+					onClick="iniciarlectura()" style="display: none; color: white">
+				<input class="button" name="Iniciar Evaluación" type="button" id="iniciar" value="Start Examination"
+					onClick="iniciar()" style="display: none; color: white">
+				<input class="button" name="Regresar" type="button" id="regresar" value="Back" onClick="regresar()"
+					style="display: none; color: white">
+				<input class="button" name="Finalizar" type="button" id="finalizar" value="Finish and Save"
+					onClick="guardarLog(); location.href='index-2.html';" style="display: none; color: white">
+			</div>
+			<div id="timer" style="display: none">
+				<h1><br>Reading Time:</h1>
+				<h1><span id="tiempolectura">5m 00s</span><br><br></h1>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// NUEVO: Variables globales para el contador regresivo
+		let countdownInterval = null;
+		let endTimestamp = null;
+
+		var x;
+		src = "FileSaver.js"
+
+		function startTime() {
+			const today = new Date();
+			let h = today.getHours();
+			let m = today.getMinutes();
+			let s = today.getSeconds();
+			m = checkTime(m);
+			s = checkTime(s);
+
+			document.getElementById('hora').style.color = '#222222';
+			document.getElementById('30').style.color = '#27ae60';
+			document.getElementById('5').style.color = '#ff9800';
+            document.getElementById('hora').innerHTML = h + ":" + m + ":" + s;
+
+			const hora = document.getElementById('hora').innerHTML;
+			const fin = document.getElementById('fin').innerHTML;
+			const min30 = document.getElementById('30').innerHTML;
+			const min5 = document.getElementById('5').innerHTML;
+
+			if (fin !== "") {
+				let isHoraMayor = false;
+				if (hora > fin) {
+					isHoraMayor = true;
+				}
+				if (isHoraMayor) {
+					document.getElementById('hora').style.color = 'red';
+				} else {
+					document.getElementById('hora').style.color = '#222222';
+					// Comentar para la otra opción
+					if (hora >= min30) {
+						document.getElementById('hora').style.color = "#27ae60";
+					}
+					if (hora >= min5) {
+						document.getElementById('hora').style.color = "#ff9800";
+					}
+				}
+			}
+
+			setTimeout(startTime, 1000);
+		}
+
+		function iniciarlectura() {
+			var tiempolect = new Date().getTime() + 300000;
+			var countDownDate = tiempolect;
+			document.getElementById("timer").style.display = "block";
+
+			// Detener el intervalo anterior, si existe
+			if (x) {
+				clearInterval(x);
+				minutes = 5;
+				seconds = 0;
+				document.getElementById("tiempolectura").innerHTML = minutes + "m " + seconds + "0s ";
+			}
+
+			// Update the count down every 1 second
+			x = setInterval(function () {
+
+				// Get today's date and time
+				var now = new Date().getTime();
+
+				// Find the distance between now and the count down date
+				var distance = countDownDate - now;
+
+				// Time calculations for days, hours, minutes and seconds
+				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds = Math.floor((distance % (1000 * 60)) / 1000) + 1;
+
+				// Display the result in the element with id="demo"
+				document.getElementById("tiempolectura").innerHTML = minutes + "m " + seconds + "s ";
+
+				// If the count down is finished, write some text
+				if (distance < 0) {
+					clearInterval(x);
+					document.getElementById("tiempolectura").innerHTML = "EXPIRED";
+					setTimeout(function () {
+						document.getElementById("timer").style.display = "none";
+					}, 5000);
+				}
+			}, 1000);
+		}
+
+		function activar() {
+			document.getElementById("formulario").style.display = "none";
+			document.getElementById("activada").style.display = "block";
+			document.getElementById("iniciada").style.display = "none";
+			document.getElementById("activar").style.display = "none";
+			document.getElementById("inlectura").style.display = "inline"
+			document.getElementById("iniciar").style.display = "inline";
+			document.getElementById("regresar").style.display = "inline";
+			document.getElementById("formulario").style.display = "none";
+			document.getElementById("asignaturaactivada").innerHTML = document.getElementById('asignatura').value;
+			document.getElementById("nivelactivada").innerHTML = document.getElementById('nivel').value;
+			document.getElementById("pruebaactivada").innerHTML = document.getElementById('prueba').value;
+			document.getElementById("inicialesactivada").innerHTML = document.getElementById('iniciales').value;
+			//document.getElementById("tiempoactivada").innerHTML=document.getElementById('tiempo').value;
+			var tiempototal = document.getElementById('horasex').value + " Hours " + document.getElementById('minex').value + " Minutes";
+			document.getElementById("tiempoactivada").innerHTML = tiempototal;
+		}
+
+		function iniciar() {
+			document.getElementById("formulario").style.display = "none";
+			document.getElementById("activada").style.display = "none";
+			document.getElementById("iniciada").style.display = "block";
+			document.getElementById("activar").style.display = "none";
+			document.getElementById("iniciar").style.display = "none";
+			document.getElementById("inlectura").style.display = "none"
+			document.getElementById("regresar").style.display = "none";
+			document.getElementById("finalizar").style.display = "inline";
+			document.getElementById("asignaturainiciada").innerHTML = document.getElementById('asignatura').value;
+			document.getElementById("niveliniciada").innerHTML = document.getElementById('nivel').value;
+			document.getElementById("pruebainiciada").innerHTML = document.getElementById('prueba').value;
+			document.getElementById("inicialesactivada").innerHTML = document.getElementById('iniciales').value;
+			var tiempototal = document.getElementById('horasex').value + " Hours " + document.getElementById('minex').value + " Minutes";
+			document.getElementById("tiempoiniciada").innerHTML = tiempototal;
+			document.getElementById("inicio").innerHTML = document.getElementById('hora').innerHTML;
+
+			const d = new Date();
+			let timenow = d.getTime();
+			let h = document.getElementById('horasex').value;
+			let m = document.getElementById('minex').value;
+			let time = h * (60000 * 60) + +m * 60000;
+			var horadefindeprueba = new Date(timenow + time - 499);
+			let hf = horadefindeprueba.getHours();
+			let mf = horadefindeprueba.getMinutes();
+			let sf = horadefindeprueba.getSeconds();
+			mf = checkTime(mf);
+			sf = checkTime(sf);
+            document.getElementById('fin').innerHTML = hf + ":" + mf + ":" + sf;
+
+			// NUEVO: Iniciar el contador regresivo
+			endTimestamp = horadefindeprueba.getTime();
+			iniciarCountdown();
+
+			horadefindeprueba = new Date(timenow + time - 1800000 - 499);
+			hf = horadefindeprueba.getHours();
+			mf = horadefindeprueba.getMinutes();
+			sf = horadefindeprueba.getSeconds();
+			mf = checkTime(mf);
+			sf = checkTime(sf);
+            document.getElementById('30').innerHTML = hf + ":" + mf + ":" + sf;
+
+			horadefindeprueba = new Date(timenow + time - 300000 - 499);
+			hf = horadefindeprueba.getHours();
+			mf = horadefindeprueba.getMinutes();
+			sf = horadefindeprueba.getSeconds();
+			mf = checkTime(mf);
+			sf = checkTime(sf);
+			document.getElementById('5').innerHTML = hf + ":" + mf + ":" + sf;
+		}
+
+		// NUEVO: Funciones para el contador regresivo
+		function iniciarCountdown() {
+			// evitamos duplicar intervalos
+			if (countdownInterval) clearInterval(countdownInterval);
+
+			countdownInterval = setInterval(actualizarCountdown, 1000);
+			actualizarCountdown();   // refresco inmediato
+		}
+
+		function actualizarCountdown() {
+			const now   = Date.now();
+			let diffSec = Math.floor((endTimestamp - now) / 1000);  // segundos restantes
+
+			if (diffSec < 0) diffSec = 0; // no negativo
+
+			const hh = String(Math.floor(diffSec / 3600)).padStart(2,'0');
+			const mm = String(Math.floor((diffSec % 3600) / 60)).padStart(2,'0');
+			const ss = String(diffSec % 60).padStart(2,'0');
+
+			document.getElementById('countdown').textContent = `${hh}:${mm}:${ss}`;
+
+			// Podemos reutilizar esta diferencia para los cambios de color (requerimiento 2)
+			// Ejemplo simple:
+			if (diffSec === 0) {
+				document.getElementById('countdown').style.color = 'red';
+			}
+		}
+
+		function regresar() {
+			document.getElementById("formulario").style.display = "block";
+			document.getElementById("activada").style.display = "none";
+			document.getElementById("iniciada").style.display = "none";
+			document.getElementById("activar").style.display = "inline";
+			document.getElementById("inlectura").style.display = "none"
+			document.getElementById("iniciar").style.display = "none";
+			document.getElementById("regresar").style.display = "none";
+			document.getElementById('hora').style.color = 'black';
+			document.getElementById("timer").style.display = "none";
+		}
+
+		function checkTime(i) {
+			if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+			return i;
+		}
+
+		var elem = document.documentElement;
+
+		/* View in fullscreen */
+		if (elem.requestFullscreen) {
+			elem.requestFullscreen();
+		} else if (elem.webkitRequestFullscreen) { /* Safari */
+			elem.webkitRequestFullscreen();
+		} else if (elem.msRequestFullscreen) { /* IE11 */
+			elem.msRequestFullscreen();
+		}
+
+		/* Close fullscreen */
+		function closeFullscreen() {
+			if (document.exitFullscreen) {
+				document.exitFullscreen();
+			} else if (document.webkitExitFullscreen) { /* Safari */
+				document.webkitExitFullscreen();
+			} else if (document.msExitFullscreen) { /* IE11 */
+				document.msExitFullscreen();
+			}
+		}
+
+        function guardarEnServidor(nombreArchivo, contenidoArchivo) {
+            fetch('https://gimnasioloscerezos.edu.co/cherrytools/cherryibtiming/save_examination_data.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombre: nombreArchivo,
+                    contenido: contenidoArchivo
+                })
+            });
+            // No manejamos la respuesta ni los errores, ya que sabemos que funciona
+        }
+
+		function guardarLog() {
+			// NUEVO: Limpiar el intervalo del contador
+			if (countdownInterval) clearInterval(countdownInterval);
+
+			// Obtener los valores de los campos del formulario
+			var asignatura = document.getElementById("asignatura").value;
+			var nivel = document.getElementById("nivel").value;
+			var prueba = document.getElementById("prueba").value;
+			var duracionHoras = document.getElementById("horasex").value;
+			var duracionMinutos = document.getElementById("minex").value;
+			var horaInicio = document.getElementById("inicio").textContent;
+			var horaFin = document.getElementById("fin").textContent;
+			var inicialesR = document.getElementById("iniciales").value;
+			let inicialesCL = inicialesR.toUpperCase();
+
+			// Obtener fecha y hora actual formateada
+            var fechaActual = new Date().toISOString().slice(0, 10);
+            var horaActual = new Date().toLocaleTimeString('en-GB').replace(/:/g, ':');
+
+			// Crear el nombre del archivo con la información obtenida
+            var nombreArchivo = "Examination Session IBDP - GCLC - " + fechaActual + " at " + horaInicio + ".txt";
+
+			// Crear el contenido del archivo
+			var contenidoArchivo = "Examination Date: " + fechaActual + "\r\n" +
+				"Invigilator: " + inicialesCL + "\r\n" +
+				"Subject: " + asignatura + "\r\n" +
+				"Test Level: " + nivel + "\r\n" +
+				"Test: " + prueba + "\r\n" +
+				"Duration Hours: " + duracionHoras + "\r\n" +
+				"Duration Minutes: " + duracionMinutos + "\r\n" +
+				"Start Time: " + horaInicio + "\r\n" +
+				"End Time: " + horaFin;
+
+			// Crear un objeto Blob con el contenido del archivo
+			var blob = new Blob([contenidoArchivo], { type: "text/plain;charset=utf-8" });
+
+			// Guardar el archivo
+			saveAs(blob, nombreArchivo);
+
+			// Nuevo: guardar en el servidor
+			guardarEnServidor(nombreArchivo, contenidoArchivo);
+		}
+
+	</script>
+</body>
+</html>
